@@ -1,0 +1,8 @@
+//@version=5
+indicator("EMA 21 and SMA 21 Combine", overlay=true)
+
+ema21 = ta.ema(close, 21)
+sma21 = ta.sma(close, 21)
+
+plot(ema21, color=color.blue, title="EMA 21")
+plot(sma21, color=color.red, title="SMA 21")

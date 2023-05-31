@@ -1,0 +1,18 @@
+//@version=5
+indicator("Inside Candle", overlay=true)
+
+// Calculate the size of the current candle
+currentCandleSize = high - low
+
+// Calculate the size of the previous candle
+previousCandleSize = high[1] - low[1]
+
+// Calculate whether the current candle is an inside candle
+isInsideCandle = low > low[1] and high < high[1]
+
+// Plotting the inside candles
+plotshape(isInsideCandle ? low : na, title="Inside Candle", location=location.belowbar, color=color.blue, style=shape.triangleup)
+
+// Send alert to the terminal
+if isInsideCandle
+    alert("Inside Candle Detected")

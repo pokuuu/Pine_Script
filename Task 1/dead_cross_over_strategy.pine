@@ -1,0 +1,28 @@
+//@version=5
+indicator("Death Cross Strategy", overlay=true)
+
+// Define the input variables
+shortMA_length = input(50, title="Short-term MA Length")
+longMA_length = input(200, title="Long-term MA Length")
+
+// Calculate the moving averages
+shortMA = ta.sma(close, shortMA_length)
+longMA = ta.sma(close, longMA_length)
+
+// Detect Death Cross
+deathCross = ta.crossover(shortMA, longMA)
+
+// Generate buy and sell signals
+buySignal = ta.crossover(shortMA, longMA[1]) ? 1 : 0
+sellSignal = ta.crossunder(shortMA, longMA[1]) ? 1 : 0
+
+// Plotting the Death Cross
+plotshape(deathCross ? shortMA : na, title="Death Cross", location=location.belowbar, color=color.red, style=shape.arrowdown)
+
+// Plotting the signals
+plotshape(buySignal, title="Buy Signal", location=location.belowbar, color=color.green, style=shape.triangleup, size=size.small)
+plotshape(sellSignal, title="Sell Signal", location=location.abovebar, color=color.red, style=shape.triangledown, size=size.small)
+
+// Plotting the moving averages
+plot(shortMA, title="Short-term MA", color=color.blue, linewidth=2)
+plot(longMA, title="Long-term MA", color=color.orange, linewidth=2)

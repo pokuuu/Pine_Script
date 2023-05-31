@@ -1,0 +1,15 @@
+//@version=5
+indicator("MACD Indicator", overlay=false)
+
+[macdLine, signalLine, _] = ta.macd(close, 14, 21, 9)
+[macdLine2, signalLine2, _] = ta.macd(close, 41, 90, 9)
+[macdLine3, signalLine3, _] = ta.macd(close, 90, 200, 9)
+
+plot(macdLine, color=color.blue, title="MACD Line (14,21)")
+plot(signalLine, color=color.red, title="Signal Line (14,21)")
+
+plot(macdLine2, color=color.green, title="MACD Line (41,90)")
+plot(signalLine2, color=color.orange, title="Signal Line (41,90)")
+
+plot(macdLine3, color=color.purple, title="MACD Line (90,200)")
+plot(signalLine3, color=color.yellow, title="Signal Line (90,200)")

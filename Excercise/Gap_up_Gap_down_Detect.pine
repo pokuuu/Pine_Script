@@ -1,0 +1,22 @@
+//@version=5
+indicator("Gap-Up Gap-Down Signals", overlay=true)
+
+// Check if it's the first candle of the day
+isFirstCandle = ta.change(time("D"))
+
+// Calculate the price difference between the current open and previous close
+priceDifference = open - close[1]
+
+// Determine if it's a Gap-Up or Gap-Down at market open
+isGapUp = isFirstCandle and priceDifference > 0
+isGapDown = isFirstCandle and priceDifference < 0
+
+// Plotting signals
+plotshape(isGapUp ? open : na, title="Gap-Up", location=location.belowbar, color=color.green, style=shape.triangleup)
+plotshape(isGapDown ? open : na, title="Gap-Down", location=location.abovebar, color=color.red, style=shape.triangledown)
+
+// Send alert to the terminal
+if isGapUp
+    alert("Gap-Up Signal: Long the Stock")
+if isGapDown
+    alert("Gap-Down Signal: Short the Stock")

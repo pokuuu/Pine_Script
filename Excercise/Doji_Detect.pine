@@ -1,0 +1,27 @@
+//@version=5
+indicator("Doji Candle Alert", overlay=true)
+
+// Define the doji threshold
+dojiThreshold = input(0.1, title="Doji Threshold")
+
+// Calculate the candle body size
+bodySize = math.abs(close - open)
+
+// Calculate the candle range
+candleRange = high - low
+
+// Calculate the upper shadow
+upperShadow = high - math.max(close, open)
+
+// Calculate the lower shadow
+lowerShadow = math.min(close, open) - low
+
+// Check for Doji candle condition
+isDoji = bodySize <= dojiThreshold * candleRange
+
+// Plotting the Doji candles
+plotshape(isDoji ? close : na, title="Doji Candle", location=location.belowbar, color=color.yellow, style=shape.labelup)
+
+// Send alert to the terminal
+if isDoji
+    alert("Doji Candle Detected")
